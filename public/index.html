@@ -109,6 +109,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="nav-item" onclick="showPage('ai',this)">◎ &nbsp;AI assistant</div>
     <div class="nav-item" onclick="showPage('billing',this)">◐ &nbsp;Billing</div>
     <div class="nav-item" onclick="showPage('settings',this)">◷ &nbsp;Settings</div>
+    <div style="margin:12px 18px 6px;font-size:10px;color:#bbb;text-transform:uppercase;letter-spacing:0.06em;">Growth</div>
+    <div class="nav-item" onclick="showPage('leadgen',this)" style="color:#16a34a;font-weight:500;">◈ &nbsp;Lead Gen <span style="font-size:10px;background:#dcfce7;color:#166534;padding:2px 6px;border-radius:10px;margin-left:4px;">New</span></div>
   </div>
   <div class="main">
     <div class="topbar">
@@ -289,12 +291,162 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         </div>
       </div>
 
+      <!-- LEAD GEN -->
+      <div class="page" id="page-leadgen">
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Leads this month</div><div class="metric-value">47</div><div class="metric-change">↑ 34% vs last month</div></div>
+          <div class="metric"><div class="metric-label">Qualified</div><div class="metric-value">31</div><div class="metric-change">66% qualify rate</div></div>
+          <div class="metric"><div class="metric-label">Consultations booked</div><div class="metric-value">24</div><div class="metric-change">↑ 77% of qualified</div></div>
+          <div class="metric"><div class="metric-label">Avg response time</div><div class="metric-value">18s</div><div class="metric-change" style="color:#888;">AI-powered</div></div>
+        </div>
+
+        <div style="display:flex;gap:4px;border-bottom:1px solid #e5e5e5;margin-bottom:20px;" id="lg-tabs">
+          <div class="tab active" onclick="lgTab('channels',this)">Channels</div>
+          <div class="tab" onclick="lgTab('pipeline',this)">Live Pipeline</div>
+          <div class="tab" onclick="lgTab('sequences',this)">Nurture Sequences</div>
+          <div class="tab" onclick="lgTab('compliance',this)">Compliance</div>
+          <div class="tab" onclick="lgTab('analytics',this)">Analytics</div>
+        </div>
+
+        <!-- CHANNELS -->
+        <div id="lg-channels">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Active lead generation channels</div><div class="pill p-green">MRPC 7.3 Compliant</div></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">🌐</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Website chat widget</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">Visitors who land on the site are already seeking help — AI qualifies and books them 24/7.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">23 leads/mo</span><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">📱</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Google Ads landing page</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">Person clicked the ad voluntarily. AI captures, qualifies, and books them instantly.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">12 leads/mo</span><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">📘</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Facebook Lead Ads</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">User fills out a form expressing interest. AI follows up within seconds via text.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">8 leads/mo</span><div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">⭐</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Google Business messages</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">People searching locally and clicking Message get an immediate AI response.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">4 leads/mo</span><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">📞</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">After-hours call capture</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">Office is closed — AI answers, qualifies, books a callback or consultation automatically.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">Active 5PM–9AM</span><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+              <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:16px;">
+                <div style="font-size:22px;margin-bottom:8px;">🔁</div>
+                <div style="font-size:13px;font-weight:600;margin-bottom:4px;">Referral follow-up</div>
+                <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:12px;">Past client refers someone — AI sends a personalized welcome and books instantly.</div>
+                <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;color:#aaa;">2 leads/mo</span><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PIPELINE -->
+        <div id="lg-pipeline" style="display:none;">
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;">
+            <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:14px;min-height:220px;">
+              <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:flex;justify-content:space-between;">New Leads <span style="color:#1d4ed8;font-weight:600;">4</span></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Maria Santos</div><div style="font-size:11px;color:#aaa;">🌐 Website · 2 min ago</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">James Obi</div><div style="font-size:11px;color:#aaa;">📱 Google Ad · 14 min ago</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;"><div style="font-size:13px;font-weight:500;">Tasha Brown</div><div style="font-size:11px;color:#aaa;">📞 After hours · 1 hr ago</div></div>
+            </div>
+            <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:14px;min-height:220px;">
+              <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:flex;justify-content:space-between;">Qualifying <span style="color:#b45309;font-weight:600;">3</span></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Priya Nair</div><div style="font-size:11px;color:#aaa;">AI asking questions</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;"><div style="font-size:13px;font-weight:500;">Devon Marshall</div><div style="font-size:11px;color:#aaa;">Awaiting response</div></div>
+            </div>
+            <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:14px;min-height:220px;">
+              <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:flex;justify-content:space-between;">Qualified <span style="color:#5b21b6;font-weight:600;">7</span></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Ahmed Hassan</div><div style="font-size:11px;color:#aaa;">Auto accident · Strong</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Carol James</div><div style="font-size:11px;color:#aaa;">Slip & fall · ER docs</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;"><div style="font-size:13px;font-weight:500;">Mike Stefano</div><div style="font-size:11px;color:#aaa;">Dog bite · Clear liability</div></div>
+            </div>
+            <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:14px;min-height:220px;">
+              <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:flex;justify-content:space-between;">Booked <span style="color:#166534;font-weight:600;">24</span></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Diana Martinez</div><div style="font-size:11px;color:#aaa;">Mon 10 AM confirmed</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;"><div style="font-size:13px;font-weight:500;">Kevin Johnson</div><div style="font-size:11px;color:#aaa;">Mon 2 PM follow-up</div></div>
+            </div>
+            <div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:10px;padding:14px;min-height:220px;">
+              <div style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;display:flex;justify-content:space-between;">Not Qualified <span style="color:#991b1b;font-weight:600;">3</span></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;margin-bottom:8px;"><div style="font-size:13px;font-weight:500;">Amy Liu</div><div style="font-size:11px;color:#aaa;">Ohio jurisdiction</div></div>
+              <div style="background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:10px;"><div style="font-size:13px;font-weight:500;">Tom Green</div><div style="font-size:11px;color:#aaa;">Statute of limitations</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEQUENCES -->
+        <div id="lg-sequences" style="display:none;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Nurture sequence — Qualified but not booked</div><div class="pill p-green">5 touchpoints</div></div>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;gap:14px;"><div style="width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#888;flex-shrink:0;">1</div><div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:8px;padding:14px;flex:1;"><div style="font-size:11px;color:#b45309;font-weight:500;margin-bottom:4px;">IMMEDIATELY — within 60 seconds</div><div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;">Instant qualification text</div><div style="font-size:12px;color:#888;line-height:1.6;">"Hi [name], this is the AI assistant for Miller & Associates. Based on what you shared, your case looks strong. James has availability tomorrow at 10 AM or 2 PM. Reply '10' or '2' to confirm."</div></div></div>
+              <div style="display:flex;gap:14px;"><div style="width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#888;flex-shrink:0;">2</div><div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:8px;padding:14px;flex:1;"><div style="font-size:11px;color:#b45309;font-weight:500;margin-bottom:4px;">2 HOURS LATER — if no response</div><div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;">Soft follow-up</div><div style="font-size:12px;color:#888;line-height:1.6;">"Hey [name], just wanted to make sure my message came through. Free consultation, no commitment. What time works best this week?"</div></div></div>
+              <div style="display:flex;gap:14px;"><div style="width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#888;flex-shrink:0;">3</div><div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:8px;padding:14px;flex:1;"><div style="font-size:11px;color:#b45309;font-weight:500;margin-bottom:4px;">DAY 2 — morning</div><div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;">Value reminder</div><div style="font-size:12px;color:#888;line-height:1.6;">"Hi [name], Michigan law gives you 3 years to file a personal injury claim, but the sooner you act the stronger the case. Can we get 30 minutes on the calendar?"</div></div></div>
+              <div style="display:flex;gap:14px;"><div style="width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#888;flex-shrink:0;">4</div><div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:8px;padding:14px;flex:1;"><div style="font-size:11px;color:#b45309;font-weight:500;margin-bottom:4px;">DAY 5 — email</div><div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;">Educational email with case guide</div><div style="font-size:12px;color:#888;line-height:1.6;">Subject: "What to do after a [case type] in Michigan" — sends a helpful guide. Builds trust, keeps firm top of mind, includes a booking link.</div></div></div>
+              <div style="display:flex;gap:14px;"><div style="width:28px;height:28px;border-radius:50%;background:#f3f4f6;border:1px solid #e5e5e5;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#888;flex-shrink:0;">5</div><div style="background:#f9fafb;border:1px solid #e5e5e5;border-radius:8px;padding:14px;flex:1;"><div style="font-size:11px;color:#b45309;font-weight:500;margin-bottom:4px;">DAY 14 — final</div><div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:6px;">Last check-in</div><div style="font-size:12px;color:#888;line-height:1.6;">"Last follow-up from Miller & Associates. Whenever you're ready — free consultation, no pressure. Just reply or call us anytime."</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COMPLIANCE -->
+        <div id="lg-compliance" style="display:none;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Michigan MRPC 7.3 — What's allowed</div><div class="pill p-green">Fully compliant</div></div>
+            <div style="display:flex;flex-direction:column;">
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;"><div style="width:22px;height:22px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✅</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Website chatbot capturing inbound visitors</div><div style="font-size:12px;color:#888;line-height:1.5;">Fully allowed. Person visited the site voluntarily. Lexara responding is equivalent to a receptionist answering.</div></div></div>
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;"><div style="width:22px;height:22px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✅</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Automated texts/emails to people who contacted the firm first</div><div style="font-size:12px;color:#888;line-height:1.5;">Allowed. MRPC 7.3 explicitly states text messages that recipients may easily disregard do not constitute prohibited live contact.</div></div></div>
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;"><div style="width:22px;height:22px;border-radius:6px;background:#dcfce7;display:flex;align-items:center;justify-content:center;flex-shrink:0;">✅</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Google and Facebook ad campaigns targeting general audiences</div><div style="font-size:12px;color:#888;line-height:1.5;">Fully allowed. Advertising to the general public is explicitly permitted under Michigan rules.</div></div></div>
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;"><div style="width:22px;height:22px;border-radius:6px;background:#fee2e2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">❌</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Cold outreach to known accident victims using police/court records</div><div style="font-size:12px;color:#888;line-height:1.5;">PROHIBITED. Contacting a specific person known to need legal services in a particular matter is illegal solicitation. Fines up to $60,000 and possible disbarment.</div></div></div>
+              <div style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;"><div style="width:22px;height:22px;border-radius:6px;background:#fee2e2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">❌</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Live phone calls to accident victims</div><div style="font-size:12px;color:#888;line-height:1.5;">PROHIBITED. Ambulance chasing is a criminal misdemeanor in Michigan regardless of whether a lawyer or non-lawyer makes the call.</div></div></div>
+              <div style="display:flex;gap:12px;padding:12px 0;"><div style="width:22px;height:22px;border-radius:6px;background:#fee2e2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">❌</div><div><div style="font-size:13px;font-weight:500;margin-bottom:3px;">Scraping hospital or ER data to contact patients</div><div style="font-size:12px;color:#888;line-height:1.5;">PROHIBITED. Illegal under both HIPAA and MRPC. Any outreach using medical records is strictly off limits.</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS -->
+        <div id="lg-analytics" style="display:none;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+            <div class="card">
+              <div class="card-header"><div class="card-title">Leads by source this month</div></div>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div style="display:flex;align-items:center;gap:12px;"><div style="font-size:12px;color:#888;width:130px;text-align:right;">Website chat</div><div style="flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;"><div style="height:8px;border-radius:4px;background:#2e7d32;width:72%;"></div></div><div style="font-size:12px;color:#888;width:24px;">23</div></div>
+                <div style="display:flex;align-items:center;gap:12px;"><div style="font-size:12px;color:#888;width:130px;text-align:right;">Google Ads</div><div style="flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;"><div style="height:8px;border-radius:4px;background:#1d4ed8;width:38%;"></div></div><div style="font-size:12px;color:#888;width:24px;">12</div></div>
+                <div style="display:flex;align-items:center;gap:12px;"><div style="font-size:12px;color:#888;width:130px;text-align:right;">Facebook Ads</div><div style="flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;"><div style="height:8px;border-radius:4px;background:#5b21b6;width:25%;"></div></div><div style="font-size:12px;color:#888;width:24px;">8</div></div>
+                <div style="display:flex;align-items:center;gap:12px;"><div style="font-size:12px;color:#888;width:130px;text-align:right;">Google Business</div><div style="flex:1;height:8px;background:#f0f0f0;border-radius:4px;overflow:hidden;"><div style="height:8px;border-radius:4px;background:#b45309;width:13%;"></div></div><div style="font-size:12px;color:#888;width:24px;">4</div></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title">Response time impact</div></div>
+              <div style="font-size:13px;color:#888;line-height:1.8;">
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;"><span>Respond within 60 seconds</span><span style="color:#2e7d32;font-weight:500;">78% book rate</span></div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;"><span>Respond within 5 minutes</span><span style="color:#b45309;font-weight:500;">43% book rate</span></div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f0f0;"><span>Respond within 1 hour</span><span style="color:#991b1b;font-weight:500;">12% book rate</span></div>
+                <div style="display:flex;justify-content:space-between;padding:8px 0;"><span>No response / voicemail</span><span style="color:#991b1b;font-weight:500;">2% book rate</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
 </div>
 
 <script>
-const pageTitles={dashboard:'Good morning, James ☀',intake:'Intake leads',documents:'Documents',ai:'AI assistant',billing:'Billing',settings:'Settings'};
+const pageTitles={dashboard:'Good morning, James ☀',intake:'Intake leads',documents:'Documents',ai:'AI assistant',billing:'Billing',settings:'Settings',leadgen:'Lead Gen'};
 function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');el.classList.add('active');document.getElementById('topbar-title').textContent=pageTitles[id];}
 function filterIntake(s,el){document.querySelectorAll('#intake-tabs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');let v=0;document.querySelectorAll('#intake-list .lead-item').forEach(i=>{const show=s==='all'||i.dataset.status===s;i.style.display=show?'flex':'none';if(show)v++;});document.getElementById('intake-empty').style.display=v===0?'block':'none';}
 function filterDocs(s,el){document.querySelectorAll('#page-documents .tab-row .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');let v=0;document.querySelectorAll('#doc-list .doc-item').forEach(i=>{const show=s==='all'||i.dataset.docstatus===s;i.style.display=show?'flex':'none';if(show)v++;});document.getElementById('doc-empty').style.display=v===0?'block':'none';}
@@ -346,6 +498,13 @@ async function sendAI(){
   chat.scrollTop=chat.scrollHeight;
 }
 function go(t){document.getElementById('ai-input').value=t;sendAI();}
+function lgTab(id,el){
+  const tabs=['channels','pipeline','sequences','compliance','analytics'];
+  tabs.forEach(t=>document.getElementById('lg-'+t).style.display='none');
+  document.querySelectorAll('#lg-tabs .tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('lg-'+id).style.display='block';
+  el.classList.add('active');
+}
 </script>
 </body>
 </html>
