@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lexara — Miller & Associates</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f3;color:#1a1a1a;height:100vh;overflow:hidden;}
+.app{display:flex;height:100vh;}
+.sidebar{width:210px;background:#fff;border-right:1px solid #e5e5e5;display:flex;flex-direction:column;padding:16px 0;flex-shrink:0;}
+.logo{padding:0 18px 20px;border-bottom:1px solid #e5e5e5;margin-bottom:12px;}
+.logo-name{font-size:17px;font-weight:600;color:#1a1a1a;letter-spacing:-0.3px;}
+.logo-sub{font-size:11px;color:#888;margin-top:3px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:13px;cursor:pointer;color:#666;transition:all 0.15s;border-left:3px solid transparent;}
+.nav-item:hover{background:#f5f5f3;color:#1a1a1a;}
+.nav-item.active{background:#f5f5f3;color:#1a1a1a;font-weight:500;border-left-color:#1a1a1a;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:#fff;border-bottom:1px solid #e5e5e5;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;}
+.topbar-title{font-size:15px;font-weight:500;}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;background:#e8f5e9;color:#2e7d32;}
+.content{flex:1;overflow:hidden;display:flex;flex-direction:column;}
+.page{display:none;flex:1;overflow-y:auto;padding:22px 24px;flex-direction:column;}
+.page.active{display:flex;}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px;}
+.metric{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:15px;}
+.metric-label{font-size:11px;color:#888;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.04em;}
+.metric-value{font-size:24px;font-weight:600;color:#1a1a1a;}
+.metric-change{font-size:11px;color:#2e7d32;margin-top:4px;}
+.grid2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-bottom:20px;}
+.card{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:18px;margin-bottom:16px;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.card-title{font-size:14px;font-weight:600;color:#1a1a1a;}
+.tab-row{display:flex;border-bottom:1px solid #e5e5e5;margin-bottom:14px;}
+.tab{font-size:13px;padding:7px 14px;cursor:pointer;color:#888;border-bottom:2px solid transparent;margin-bottom:-1px;user-select:none;transition:all 0.15s;}
+.tab:hover{color:#1a1a1a;}
+.tab.active{color:#1a1a1a;border-bottom-color:#1a1a1a;font-weight:500;}
+.lead-item{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f0f0f0;}
+.lead-item:last-child{border-bottom:none;}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;}
+.av-blue{background:#dbeafe;color:#1e40af;}.av-green{background:#dcfce7;color:#166534;}.av-amber{background:#fef3c7;color:#92400e;}.av-purple{background:#ede9fe;color:#5b21b6;}.av-coral{background:#fee2e2;color:#991b1b;}.av-teal{background:#ccfbf1;color:#134e4a;}
+.lead-info{flex:1;}
+.lead-name{font-size:13px;font-weight:500;}
+.lead-detail{font-size:12px;color:#888;margin-top:2px;}
+.pill{font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap;font-weight:500;}
+.p-green{background:#dcfce7;color:#166534;}.p-amber{background:#fef3c7;color:#92400e;}.p-blue{background:#dbeafe;color:#1e40af;}.p-red{background:#fee2e2;color:#991b1b;}.p-gray{background:#f3f4f6;color:#6b7280;}
+.doc-item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #f0f0f0;}
+.doc-item:last-child{border-bottom:none;}
+.doc-icon{width:32px;height:32px;border-radius:8px;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.doc-info{flex:1;}
+.doc-name{font-size:13px;font-weight:500;}
+.doc-meta{font-size:12px;color:#888;margin-top:2px;}
+.msg-wrap-ai{display:flex;flex-direction:column;align-items:flex-start;margin-bottom:4px;}
+.msg-wrap-user{display:flex;flex-direction:column;align-items:flex-end;margin-bottom:4px;}
+.msg{max-width:86%;padding:11px 14px;border-radius:12px;font-size:13px;line-height:1.6;}
+.msg-ai{background:#f5f5f3;color:#1a1a1a;}
+.msg-user{background:#1a1a1a;color:#fff;}
+.msg-label{font-size:11px;color:#aaa;margin-bottom:4px;}
+.ai-box{display:flex;flex-direction:column;gap:10px;flex:1;overflow-y:auto;border:1px solid #e5e5e5;border-radius:10px;padding:16px;background:#fafafa;margin-bottom:12px;min-height:250px;}
+.chat-row{display:flex;gap:8px;}
+.chat-row input{flex:1;padding:9px 14px;font-size:13px;border:1px solid #e5e5e5;border-radius:8px;background:#fff;color:#1a1a1a;outline:none;}
+.chat-row input:focus{border-color:#aaa;}
+.chat-row button{padding:9px 18px;font-size:13px;border-radius:8px;background:#1a1a1a;border:none;color:#fff;cursor:pointer;font-weight:500;}
+.chat-row button:disabled{background:#ccc;cursor:not-allowed;}
+.quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.qbtn{padding:10px 12px;font-size:12px;text-align:left;border-radius:8px;border:1px solid #e5e5e5;background:#fff;color:#1a1a1a;cursor:pointer;transition:background 0.15s;}
+.qbtn:hover{background:#f5f5f3;}
+.bill-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #f0f0f0;}
+.bill-row:last-child{border-bottom:none;}
+.bill-desc{font-size:13px;font-weight:500;}
+.bill-meta{font-size:12px;color:#888;margin-top:2px;}
+.bill-amt{font-size:13px;font-weight:600;}
+.set-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid #f0f0f0;}
+.set-row:last-child{border-bottom:none;}
+.set-label{font-size:13px;font-weight:500;}
+.set-desc{font-size:12px;color:#888;margin-top:2px;}
+.toggle{width:38px;height:22px;border-radius:20px;position:relative;cursor:pointer;flex-shrink:0;transition:background 0.2s;}
+.toggle.on{background:#2e7d32;}.toggle.off{background:#d1d5db;}
+.knob{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2);}
+.toggle.on .knob{left:18px;}.toggle.off .knob{left:2px;}
+.edit-btn{font-size:12px;color:#2563eb;cursor:pointer;padding:4px 10px;border:1px solid #e5e5e5;border-radius:6px;}
+.edit-input{font-size:13px;padding:5px 10px;border:1px solid #d1d5db;border-radius:6px;outline:none;width:220px;}
+.save-btn{font-size:12px;color:#2e7d32;cursor:pointer;padding:4px 10px;border:1px solid #e5e5e5;border-radius:6px;margin-left:6px;}
+.empty{text-align:center;padding:40px;color:#aaa;font-size:13px;}
+.act-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start;}
+.act-item:last-child{border-bottom:none;}
+.dot{width:8px;height:8px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+.dg{background:#2e7d32;}.db{background:#1d4ed8;}.da{background:#b45309;}
+.act-text{font-size:13px;line-height:1.4;}
+.act-time{font-size:11px;color:#aaa;margin-top:2px;}
+.typing{display:flex;gap:4px;padding:11px 14px;background:#f5f5f3;border-radius:12px;align-self:flex-start;width:56px;}
+.typing span{width:6px;height:6px;border-radius:50%;background:#aaa;animation:blink 1.2s infinite;}
+.typing span:nth-child(2){animation-delay:.2s;}.typing span:nth-child(3){animation-delay:.4s;}
+@keyframes blink{0%,80%,100%{opacity:.2;}40%{opacity:1;}}
+.ai-page{display:flex;flex-direction:column;flex:1;min-height:0;gap:16px;}
+.ai-card{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:18px;display:flex;flex-direction:column;flex:1;min-height:0;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="logo">
+      <div class="logo-name">Lexara</div>
+      <div class="logo-sub" id="sidebar-firm">Miller & Associates PI</div>
+    </div>
+    <div class="nav-item active" onclick="showPage('dashboard',this)">◼ &nbsp;Dashboard</div>
+    <div class="nav-item" onclick="showPage('intake',this)">◉ &nbsp;Intake</div>
+    <div class="nav-item" onclick="showPage('documents',this)">◈ &nbsp;Documents</div>
+    <div class="nav-item" onclick="showPage('ai',this)">◎ &nbsp;AI assistant</div>
+    <div class="nav-item" onclick="showPage('billing',this)">◐ &nbsp;Billing</div>
+    <div class="nav-item" onclick="showPage('settings',this)">◷ &nbsp;Settings</div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Good morning, James ☀</div>
+      <div class="badge">AI agent active</div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="page-dashboard">
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Leads this week</div><div class="metric-value">14</div><div class="metric-change">↑ 3 from last week</div></div>
+          <div class="metric"><div class="metric-label">Auto-booked</div><div class="metric-value">9</div><div class="metric-change">64% conversion</div></div>
+          <div class="metric"><div class="metric-label">Docs drafted</div><div class="metric-value">23</div><div class="metric-change">↑ 8 hrs saved</div></div>
+          <div class="metric"><div class="metric-label">Hours reclaimed</div><div class="metric-value">11.5</div><div class="metric-change">↑ vs last week</div></div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Recent intake leads</div></div>
+            <div class="lead-item"><div class="avatar av-blue">DM</div><div class="lead-info"><div class="lead-name">Diana Martinez</div><div class="lead-detail">Auto accident · Booked 11:43 PM</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item"><div class="avatar av-green">TW</div><div class="lead-info"><div class="lead-name">Trevor Wallace</div><div class="lead-detail">Slip & fall · Retainer signed</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item"><div class="avatar av-amber">SR</div><div class="lead-info"><div class="lead-name">Sandra Reyes</div><div class="lead-detail">Workers comp · Needs review</div></div><div class="pill p-amber">In review</div></div>
+            <div class="lead-item"><div class="avatar av-purple">KJ</div><div class="lead-info"><div class="lead-name">Kevin Johnson</div><div class="lead-detail">Truck accident · New this morning</div></div><div class="pill p-blue">New</div></div>
+            <div class="lead-item"><div class="avatar av-coral">AL</div><div class="lead-info"><div class="lead-name">Amy Liu</div><div class="lead-detail">Med malpractice · Out of jurisdiction</div></div><div class="pill p-red">Not qualified</div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">AI intake — Diana M.</div><div style="font-size:11px;color:#aaa;">11:42 PM</div></div>
+            <div style="display:flex;flex-direction:column;gap:8px;max-height:240px;overflow-y:auto;">
+              <div class="msg-wrap-ai"><div class="msg-label">Lexara AI</div><div class="msg msg-ai">Hi! You've reached Miller & Associates. How can I help you tonight?</div></div>
+              <div class="msg-wrap-user"><div class="msg msg-user">I was in a car accident on I-94. The other driver ran a red light. My neck really hurts.</div></div>
+              <div class="msg-wrap-ai"><div class="msg msg-ai">I'm sorry to hear that. Were you seen by a doctor at the scene?</div></div>
+              <div class="msg-wrap-user"><div class="msg msg-user">Yes, went to the ER. Possible whiplash.</div></div>
+              <div class="msg-wrap-ai"><div class="msg msg-ai">Good — that documentation matters a lot. James has availability tomorrow at 10 AM or 2 PM. Which works?</div></div>
+              <div class="msg-wrap-user"><div class="msg msg-user">10 AM!</div></div>
+              <div class="msg-wrap-ai"><div class="msg msg-ai">Confirmed for 10 AM. You'll get a reminder. Get some rest tonight.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Documents this week</div></div>
+            <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Demand letter — Martinez v. Okafor</div><div class="doc-meta">Drafted in 38 sec · Pending review</div></div></div>
+            <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Retainer — Wallace, T.</div><div class="doc-meta">Drafted 22 sec · Signed</div></div></div>
+            <div class="doc-item"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Medical summary — Nguyen</div><div class="doc-meta">142 pages → 2 pages · 4 min</div></div></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Recent activity</div></div>
+            <div class="act-item"><div class="dot dg"></div><div><div class="act-text">AI booked Diana Martinez for 10 AM — no staff involved</div><div class="act-time">Today, 11:43 PM</div></div></div>
+            <div class="act-item"><div class="dot db"></div><div><div class="act-text">Demand letter drafted — Martinez v. Okafor</div><div class="act-time">Today, 9:12 AM</div></div></div>
+            <div class="act-item"><div class="dot da"></div><div><div class="act-text">Sandra Reyes flagged for manual review</div><div class="act-time">Yesterday, 4:31 PM</div></div></div>
+            <div class="act-item"><div class="dot dg"></div><div><div class="act-text">Trevor Wallace retainer signed via DocuSign</div><div class="act-time">Yesterday, 2:18 PM</div></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTAKE -->
+      <div class="page" id="page-intake">
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Total leads</div><div class="metric-value">14</div><div class="metric-change">This week</div></div>
+          <div class="metric"><div class="metric-label">Auto-booked</div><div class="metric-value">9</div><div class="metric-change">64% close rate</div></div>
+          <div class="metric"><div class="metric-label">Avg response</div><div class="metric-value">23s</div><div class="metric-change">24/7 coverage</div></div>
+          <div class="metric"><div class="metric-label">After-hours leads</div><div class="metric-value">6</div><div class="metric-change">Caught overnight</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">All leads</div></div>
+          <div class="tab-row" id="intake-tabs">
+            <div class="tab active" onclick="filterIntake('all',this)">All</div>
+            <div class="tab" onclick="filterIntake('booked',this)">Booked</div>
+            <div class="tab" onclick="filterIntake('review',this)">In review</div>
+            <div class="tab" onclick="filterIntake('new',this)">New</div>
+            <div class="tab" onclick="filterIntake('notqualified',this)">Not qualified</div>
+          </div>
+          <div id="intake-list">
+            <div class="lead-item" data-status="booked"><div class="avatar av-blue">DM</div><div class="lead-info"><div class="lead-name">Diana Martinez</div><div class="lead-detail">Auto accident I-94 · Whiplash · ER documented · Booked 11:43 PM same minute</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item" data-status="booked"><div class="avatar av-green">TW</div><div class="lead-info"><div class="lead-name">Trevor Wallace</div><div class="lead-detail">Slip & fall at Meijer · ER documented · Retainer signed</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item" data-status="booked"><div class="avatar av-teal">MN</div><div class="lead-info"><div class="lead-name">Marcus Nguyen</div><div class="lead-detail">Rear-end collision · Lost wages · Booked Friday 11 AM</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item" data-status="booked"><div class="avatar av-purple">LP</div><div class="lead-info"><div class="lead-name">Linda Park</div><div class="lead-detail">Dog bite · Neighbor's property · Booked Thursday 3 PM</div></div><div class="pill p-green">Booked</div></div>
+            <div class="lead-item" data-status="review"><div class="avatar av-amber">SR</div><div class="lead-info"><div class="lead-name">Sandra Reyes</div><div class="lead-detail">Workers comp · Multi-employer liability · Needs attorney review first</div></div><div class="pill p-amber">In review</div></div>
+            <div class="lead-item" data-status="new"><div class="avatar av-purple">KJ</div><div class="lead-info"><div class="lead-name">Kevin Johnson</div><div class="lead-detail">Truck accident I-75 · Serious injury · New this morning — high priority</div></div><div class="pill p-blue">New</div></div>
+            <div class="lead-item" data-status="notqualified"><div class="avatar av-coral">AL</div><div class="lead-info"><div class="lead-name">Amy Liu</div><div class="lead-detail">Medical malpractice · Ohio hospital · Outside Michigan jurisdiction</div></div><div class="pill p-red">Not qualified</div></div>
+          </div>
+          <div id="intake-empty" class="empty" style="display:none;">No leads in this category.</div>
+        </div>
+      </div>
+
+      <!-- DOCUMENTS -->
+      <div class="page" id="page-documents">
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Docs this week</div><div class="metric-value">23</div><div class="metric-change">↑ 8 hrs saved</div></div>
+          <div class="metric"><div class="metric-label">Avg draft time</div><div class="metric-value">31s</div><div class="metric-change">vs 45 min manual</div></div>
+          <div class="metric"><div class="metric-label">Pending review</div><div class="metric-value">4</div><div class="metric-change">Ready for you</div></div>
+          <div class="metric"><div class="metric-label">Sent for signature</div><div class="metric-value">6</div><div class="metric-change">This week</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">All documents</div></div>
+          <div class="tab-row">
+            <div class="tab active" onclick="filterDocs('all',this)">All</div>
+            <div class="tab" onclick="filterDocs('pending',this)">Pending review</div>
+            <div class="tab" onclick="filterDocs('sent',this)">Sent</div>
+            <div class="tab" onclick="filterDocs('signed',this)">Signed</div>
+          </div>
+          <div id="doc-list">
+            <div class="doc-item" data-docstatus="pending"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Demand letter — Martinez v. Okafor</div><div class="doc-meta">Auto-drafted · 38 sec · Today 9:12 AM</div></div><div class="pill p-amber">Pending review</div></div>
+            <div class="doc-item" data-docstatus="signed"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Retainer agreement — Wallace, Trevor</div><div class="doc-meta">Auto-drafted · 22 sec · Yesterday · Signed</div></div><div class="pill p-green">Signed</div></div>
+            <div class="doc-item" data-docstatus="signed"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Medical summary — Nguyen, Marcus</div><div class="doc-meta">142 pages → 2 pages · Yesterday</div></div><div class="pill p-green">Done</div></div>
+            <div class="doc-item" data-docstatus="signed"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Deposition summary — Dr. Patel</div><div class="doc-meta">3hr transcript condensed · Key quotes flagged · Tuesday</div></div><div class="pill p-green">Done</div></div>
+            <div class="doc-item" data-docstatus="sent"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Retainer agreement — Park, Linda</div><div class="doc-meta">Auto-drafted · 19 sec · Tuesday · Awaiting signature</div></div><div class="pill p-blue">Sent</div></div>
+            <div class="doc-item" data-docstatus="pending"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Demand letter — Wallace v. Meijer Inc.</div><div class="doc-meta">Auto-drafted · 44 sec · Monday</div></div><div class="pill p-amber">Pending review</div></div>
+            <div class="doc-item" data-docstatus="sent"><div class="doc-icon">📄</div><div class="doc-info"><div class="doc-name">Case intake form — Johnson, Kevin</div><div class="doc-meta">Auto-generated from intake chat · Today</div></div><div class="pill p-blue">Sent</div></div>
+          </div>
+          <div id="doc-empty" class="empty" style="display:none;">No documents in this category.</div>
+        </div>
+      </div>
+
+      <!-- AI ASSISTANT -->
+      <div class="page" id="page-ai">
+        <div class="ai-page">
+          <div class="ai-card">
+            <div class="card-header" style="margin-bottom:10px;"><div class="card-title">AI assistant</div><div class="pill p-green">Live</div></div>
+            <div class="ai-box" id="ai-chat">
+              <div class="msg-wrap-ai"><div class="msg-label">Lexara AI</div><div class="msg msg-ai">Good morning, James. You have 14 leads this week — 9 booked. Kevin Johnson came in this morning with a serious truck accident on I-75, high-value case, no retainer yet. Two demand letters are pending your review. Diana Martinez is confirmed for 10 AM Monday. What do you need?</div></div>
+            </div>
+            <div class="chat-row">
+              <input type="text" id="ai-input" placeholder="Ask Lexara anything..." onkeydown="if(event.key==='Enter')sendAI()"/>
+              <button id="send-btn" onclick="sendAI()">Send</button>
+            </div>
+          </div>
+          <div class="card" style="flex-shrink:0;">
+            <div class="card-title" style="margin-bottom:12px;">Quick actions</div>
+            <div class="quick-grid">
+              <button class="qbtn" onclick="go('What is set up for me Monday?')">📅 Monday schedule</button>
+              <button class="qbtn" onclick="go('Draft a demand letter for Diana Martinez')">📄 Draft demand letter</button>
+              <button class="qbtn" onclick="go('Tell me about Kevin Johnson')">🚛 Kevin Johnson case</button>
+              <button class="qbtn" onclick="go('What leads came in overnight?')">🌙 Overnight leads</button>
+              <button class="qbtn" onclick="go('Which cases need my attention today?')">📌 Today\'s priorities</button>
+              <button class="qbtn" onclick="go('How is billing looking this month?')">💰 Billing summary</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BILLING -->
+      <div class="page" id="page-billing">
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Billed this month</div><div class="metric-value">$34,200</div><div class="metric-change">↑ 12% vs last month</div></div>
+          <div class="metric"><div class="metric-label">Auto-drafted entries</div><div class="metric-value">67</div><div class="metric-change">This month</div></div>
+          <div class="metric"><div class="metric-label">Unbilled time</div><div class="metric-value">$4,800</div><div class="metric-change">3 cases pending</div></div>
+          <div class="metric"><div class="metric-label">Hours logged</div><div class="metric-value">114</div><div class="metric-change">AI tracked 89%</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Billing entries</div><div class="pill p-blue">AI auto-drafted</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Review demand letter — Martinez v. Okafor</div><div class="bill-meta">Today · 0.3 hrs · James Miller</div></div><div class="bill-amt">$112.50</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Client consultation — Diana Martinez</div><div class="bill-meta">Today · 1.0 hrs · James Miller</div></div><div class="bill-amt">$375.00</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Review medical records — Nguyen case</div><div class="bill-meta">Yesterday · 0.5 hrs · James Miller</div></div><div class="bill-amt">$187.50</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Call — insurance adjuster re: Wallace</div><div class="bill-meta">Yesterday · 0.4 hrs · James Miller</div></div><div class="bill-amt">$150.00</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Draft retainer — Linda Park</div><div class="bill-meta">Tuesday · 0.1 hrs · AI drafted</div></div><div class="bill-amt">$37.50</div></div>
+          <div class="bill-row"><div><div class="bill-desc">Deposition prep — Dr. Patel</div><div class="bill-meta">Tuesday · 2.0 hrs · James Miller</div></div><div class="bill-amt">$750.00</div></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="page" id="page-settings">
+        <div class="card">
+          <div class="card-header"><div class="card-title">AI agent settings</div></div>
+          <div class="set-row"><div><div class="set-label">24/7 intake agent</div><div class="set-desc">AI answers calls and texts after hours</div></div><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+          <div class="set-row"><div><div class="set-label">Auto-book consultations</div><div class="set-desc">Books into James's calendar automatically</div></div><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+          <div class="set-row"><div><div class="set-label">Auto-draft documents</div><div class="set-desc">Demand letters, retainers, intake forms</div></div><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+          <div class="set-row"><div><div class="set-label">Billing entry auto-draft</div><div class="set-desc">AI logs and drafts billing entries</div></div><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+          <div class="set-row"><div><div class="set-label">Lead qualification filter</div><div class="set-desc">AI screens out-of-jurisdiction cases</div></div><div class="toggle on" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+          <div class="set-row"><div><div class="set-label">SMS follow-up reminders</div><div class="set-desc">Sends reminder 1hr before consultation</div></div><div class="toggle off" onclick="this.classList.toggle('on');this.classList.toggle('off')"><div class="knob"></div></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Firm info</div></div>
+          <div class="set-row"><div><div class="set-label">Firm name</div><div class="set-desc" id="firm-name-display">Miller & Associates Personal Injury</div></div><div id="firm-name-area"><span class="edit-btn" onclick="startEdit('firm-name')">Edit</span></div></div>
+          <div class="set-row"><div><div class="set-label">Practice area</div><div class="set-desc" id="practice-display">Personal injury — Michigan</div></div><div id="practice-area"><span class="edit-btn" onclick="startEdit('practice')">Edit</span></div></div>
+          <div class="set-row"><div><div class="set-label">Attorney name</div><div class="set-desc" id="attorney-display">James Miller</div></div><div id="attorney-area"><span class="edit-btn" onclick="startEdit('attorney')">Edit</span></div></div>
+          <div class="set-row"><div><div class="set-label">Lexara plan</div><div class="set-desc">Small Firm · $349/month</div></div><div class="pill p-green">Active</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+const pageTitles={dashboard:'Good morning, James ☀',intake:'Intake leads',documents:'Documents',ai:'AI assistant',billing:'Billing',settings:'Settings'};
+function showPage(id,el){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));document.getElementById('page-'+id).classList.add('active');el.classList.add('active');document.getElementById('topbar-title').textContent=pageTitles[id];}
+function filterIntake(s,el){document.querySelectorAll('#intake-tabs .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');let v=0;document.querySelectorAll('#intake-list .lead-item').forEach(i=>{const show=s==='all'||i.dataset.status===s;i.style.display=show?'flex':'none';if(show)v++;});document.getElementById('intake-empty').style.display=v===0?'block':'none';}
+function filterDocs(s,el){document.querySelectorAll('#page-documents .tab-row .tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');let v=0;document.querySelectorAll('#doc-list .doc-item').forEach(i=>{const show=s==='all'||i.dataset.docstatus===s;i.style.display=show?'flex':'none';if(show)v++;});document.getElementById('doc-empty').style.display=v===0?'block':'none';}
+const editConfig={'firm-name':{d:'firm-name-display',a:'firm-name-area',s:'sidebar-firm'},'practice':{d:'practice-display',a:'practice-area'},'attorney':{d:'attorney-display',a:'attorney-area'}};
+function startEdit(f){const c=editConfig[f];const cur=document.getElementById(c.d).textContent;document.getElementById(c.a).innerHTML='<input class="edit-input" id="ei-'+f+'" value="'+cur+'"/><span class="save-btn" onclick="saveEdit(\''+f+'\')">Save</span>';}
+function saveEdit(f){const c=editConfig[f];const v=document.getElementById('ei-'+f).value.trim();if(!v)return;document.getElementById(c.d).textContent=v;if(c.s)document.getElementById(c.s).textContent=v;document.getElementById(c.a).innerHTML='<span class="edit-btn" onclick="startEdit(\''+f+'\')">Edit</span>';}
+
+let history=[];
+let busy=false;
+async function sendAI(){
+  if(busy)return;
+  const inp=document.getElementById('ai-input');
+  const val=inp.value.trim();
+  if(!val)return;
+  const chat=document.getElementById('ai-chat');
+  const ud=document.createElement('div');
+  ud.className='msg-wrap-user';
+  ud.innerHTML='<div class="msg msg-user">'+val+'</div>';
+  chat.appendChild(ud);
+  inp.value='';
+  chat.scrollTop=chat.scrollHeight;
+  history.push({role:'user',content:val});
+  busy=true;
+  document.getElementById('send-btn').disabled=true;
+  const td=document.createElement('div');
+  td.id='typing';
+  td.innerHTML='<div class="typing"><span></span><span></span><span></span></div>';
+  chat.appendChild(td);
+  chat.scrollTop=chat.scrollHeight;
+  try{
+    const res=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history})});
+    const data=await res.json();
+    const reply=data.reply||'No response.';
+    history.push({role:'assistant',content:reply});
+    document.getElementById('typing')?.remove();
+    const ad=document.createElement('div');
+    ad.className='msg-wrap-ai';
+    ad.innerHTML='<div class="msg-label">Lexara AI</div><div class="msg msg-ai">'+reply.replace(/\n/g,'<br>')+'</div>';
+    chat.appendChild(ad);
+  }catch(e){
+    document.getElementById('typing')?.remove();
+    const ed=document.createElement('div');
+    ed.className='msg-wrap-ai';
+    ed.innerHTML='<div class="msg msg-ai">Connection error. Make sure the server is running.</div>';
+    chat.appendChild(ed);
+  }
+  busy=false;
+  document.getElementById('send-btn').disabled=false;
+  chat.scrollTop=chat.scrollHeight;
+}
+function go(t){document.getElementById('ai-input').value=t;sendAI();}
+</script>
+</body>
+</html>
