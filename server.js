@@ -61,18 +61,22 @@ app.post('/api/chat', async (req, res) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': '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',
+       'x-api-key': process.env.ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
+        model: 'claude-haiku-4-5-20251001',
         max_tokens: 1024,
         system: SYSTEM,
         messages
       })
     });
     const data = await response.json();
-    res.json({ reply: data.content?.[0]?.text || 'No response.' });
+if (data.error) {
+  res.json({ reply: 'Error: ' + data.error.message });
+} else {
+  res.json({ reply: data.content?.[0]?.text || 'No response.' });
+}
   } catch (e) {
     res.status(500).json({ reply: 'Error connecting to AI.' });
   }
